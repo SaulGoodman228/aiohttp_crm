@@ -9,12 +9,14 @@ from aiohttp_apispec import setup_aiohttp_apispec
 
 from apps.store import setup_accessor
 from apps.store.crm.accessor import CrmAccessor
+from apps.web.config import Config, setup_config
 from apps.web.middlewares import setup_middlewares
 from apps.web.routes import setup_routes
 
 
 
 class Application(AiohttpAplication):
+    config: Optional[Config] = None
     database: dict = {}
     crm_accessor: Optional[CrmAccessor] = None
 
@@ -32,6 +34,7 @@ class View(AiohttpView):
 app = Application()
 
 def run_app():
+    setup_config(app)
     setup_routes(app)
     setup_aiohttp_apispec(app, tytle='CRM Application', url='/docks/json',swagger_path='/docks')
     setup_middlewares(app)

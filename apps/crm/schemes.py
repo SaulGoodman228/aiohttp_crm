@@ -7,7 +7,7 @@ class UserAddSchema(Schema):
 
 
 class UserSchema(UserAddSchema):
-    id = fields.UUID(required=True)
+    id = fields.UUID(required=True,attribute='id_')
 
 class UserGetRequestSchema(Schema):
     id = fields.UUID(required=True)
@@ -15,7 +15,7 @@ class UserGetRequestSchema(Schema):
 class UserGetSchema(Schema):
     user = fields.Nested(UserSchema)
 
-class UsersGetResponseSchema(OkResponseSchema):
+class UserGetResponseSchema(OkResponseSchema):
     data = fields.Nested(UserGetSchema)
 
 
